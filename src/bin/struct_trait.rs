@@ -24,6 +24,8 @@ struct PopSinger {
 }
 
 trait ReleaseAlbum {
+    /// Every Human can ReleaseAlbum and has-a BasicInfo
+    /// Compose with or without personality
     fn get_info(&self) -> &BasicInfo;
 
     fn compose(&self) {
@@ -37,9 +39,10 @@ trait ReleaseAlbum {
             info.name,
             info.age,
             match &info.gender {
-                Gender::Male => "Male",
-                Gender::Female => "Female",
-                Gender::DontCare(desc) => desc,
+                // Match with & reference won't take ownership
+                Gender::Male => "Male",         // &str
+                Gender::Female => "Female",     // &str
+                Gender::DontCare(desc) => desc, // &String will Deref Coercion to &str
             }
         );
         self.apply_personality();
