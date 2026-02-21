@@ -36,5 +36,5 @@ cargo run --bin struct_method
 - [ ] Learn about ownership, borrowing, and lifetimes in depth
 - [ ] Explore collections (Vec, HashMap)
 - [ ] Error handling with Result and Option
-- [ ] Traits and generics
+- [ ] Traits and generics (Impl traits at [strcut_trait](./src/bin/struct_trait.rs))
 - [ ] Concurrency and async/await
