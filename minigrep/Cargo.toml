@@ -1,6 +1,3 @@
-[package]
-name = "minigrep"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
+[workspace]
+members = ["minigrep", "minigrep_macro"]
+resolver = "2"
