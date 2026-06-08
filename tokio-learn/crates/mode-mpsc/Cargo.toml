@@ -8,6 +8,7 @@ tokio = { workspace = true }
 tracing = { workspace = true }
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 indicatif = "0.18"
+mode-mpsc-macros = { path = "../mode-mpsc-macros" }
 
 [lints]
 workspace = true

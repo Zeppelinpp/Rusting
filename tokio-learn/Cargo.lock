@@ -170,9 +170,19 @@ name = "mode-mpsc"
 version = "0.1.0"
 dependencies = [
  "indicatif",
+ "mode-mpsc-macros",
  "tokio",
  "tracing",
  "tracing-subscriber",
+]
+
+[[package]]
+name = "mode-mpsc-macros"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
