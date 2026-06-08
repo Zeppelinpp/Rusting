@@ -1,0 +1,10 @@
+[package]
+name = "mode-mpsc"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+tokio = { workspace = true }
+
+[lints]
+workspace = true

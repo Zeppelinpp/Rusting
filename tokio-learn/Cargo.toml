@@ -1,0 +1,22 @@
+[package]
+name = "tokio-learn"
+version = "0.1.0"
+edition = "2024"
+
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
+
+[workspace.lints]
+rust = {}
+
+[workspace.lints.clippy]
+redundant_clone = "deny"
+redundant_closure = "deny"
