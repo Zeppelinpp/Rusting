@@ -31,7 +31,7 @@ pub async fn transform(
     out_path: &str,
     transformation_type: TransformationType,
 ) -> Result<TransformationResult, String> {
-    let status = match transformation_type {
+    let output = match transformation_type {
         TransformationType::Vidoe2Wav => {
             Command::new("ffmpeg")
                 .args([
@@ -48,8 +48,8 @@ pub async fn transform(
                     out_path,
                 ])
                 .stdout(Stdio::null())
-                .stderr(Stdio::null())
-                .status()
+                .stderr(Stdio::piped())
+                .output()
                 .await
                 .map_err(|e| e.to_string())?
         }
@@ -61,7 +61,23 @@ pub async fn transform(
         }
     };
 
-    if !status.success() {
+    let stderr = String::from_utf8_lossy(&output.stderr);
+
+    if output.status.success() {
+        tracing::info!(
+            in_path = %in_path,
+            out_path = %out_path,
+            %stderr,
+            "transform succeeded"
+        );
+    } else {
+        tracing::error!(
+            in_path = %in_path,
+            out_path = %out_path,
+            code = ?output.status.code(),
+            %stderr,
+            "transform failed"
+        );
         return Err("ffmpeg failed".to_string());
     }
 

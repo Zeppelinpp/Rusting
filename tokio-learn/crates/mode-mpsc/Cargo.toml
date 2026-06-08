@@ -5,6 +5,8 @@ edition.workspace = true
 
 [dependencies]
 tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 
 [lints]
 workspace = true
