@@ -2,15 +2,16 @@ use mode_mpsc::queue::{Job, run_batch};
 
 #[tokio::main]
 async fn main() {
-    tracing_subscriber::fmt::init();
+    tracing_subscriber::fmt()
+        .with_max_level(tracing::Level::WARN)
+        .init();
 
-    // Test 80 jobs
-    let jobs_count = 80;
+    let jobs_count = 200;
     let mut jobs = Vec::with_capacity(jobs_count);
     for i in 0..jobs_count {
         let job = Job {
-            in_path: format!("tests/test{}.mp4", i),
-            out_path: format!("tests/test{}.wav", i),
+            in_path: "tests/test.mp4".to_string(),
+            out_path: format!("tests/output_{}.wav", i),
         };
         jobs.push(job);
     }

@@ -61,24 +61,13 @@ pub async fn transform(
         }
     };
 
-    let stderr = String::from_utf8_lossy(&output.stderr);
-
-    if output.status.success() {
-        tracing::info!(
-            in_path = %in_path,
-            out_path = %out_path,
-            %stderr,
-            "transform succeeded"
-        );
-    } else {
-        tracing::error!(
-            in_path = %in_path,
-            out_path = %out_path,
-            code = ?output.status.code(),
-            %stderr,
-            "transform failed"
-        );
-        return Err("ffmpeg failed".to_string());
+    if !output.status.success() {
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        return Err(format!(
+            "ffmpeg exit code {:?}: {}",
+            output.status.code(),
+            stderr.trim()
+        ));
     }
 
     Ok(TransformationResult {
