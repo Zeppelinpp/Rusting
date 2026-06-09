@@ -1,0 +1,19 @@
+[package]
+name = "frame"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "test_frame"
+path = "src/bin/test_frame.rs"
+
+[[bin]]
+name = "frame"
+path = "src/main.rs"
+
+[dependencies]
+pixels = "0.17.1"
+winit = "0.30.13"
+ab_glyph = "0.2"
+qrcode = "0.14"
+eframe = "0.31"
