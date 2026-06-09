@@ -1,11 +1,11 @@
 use std::process::Stdio;
 use tokio::process::Command;
 
-#[derive(Default, Debug)]
+#[derive(Default, Debug, Clone)]
 pub enum TransformationType {
-    #[default]
     Video2MP3,
-    Vidoe2Wav,
+    #[default]
+    Video2Wav,
     Audio2Video,
 }
 
@@ -32,7 +32,7 @@ pub async fn transform(
     transformation_type: TransformationType,
 ) -> Result<TransformationResult, String> {
     let output = match transformation_type {
-        TransformationType::Vidoe2Wav => {
+        TransformationType::Video2Wav => {
             Command::new("ffmpeg")
                 .args([
                     "-y", // 覆盖输出文件
@@ -90,7 +90,7 @@ mod tests {
         let in_path = "tests/test.mp4";
         let out_path = "tests/test.wav";
         assert!(
-            transform(in_path, out_path, TransformationType::Vidoe2Wav)
+            transform(in_path, out_path, TransformationType::Video2Wav)
                 .await
                 .is_ok()
         )

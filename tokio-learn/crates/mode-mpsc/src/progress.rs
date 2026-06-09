@@ -5,11 +5,7 @@ use std::time::Duration;
 pub trait ProgressExt: Clone + Send + Sync + 'static {
     fn new(total: usize) -> Self;
 
-    fn task<Fut, N>(
-        &self,
-        name: N,
-        fut: Fut,
-    ) -> impl Future<Output = Fut::Output> + Send
+    fn task<Fut, N>(&self, name: N, fut: Fut) -> impl Future<Output = Fut::Output> + Send
     where
         Fut: Future + Send,
         N: Into<String> + Send;
@@ -45,11 +41,7 @@ impl ProgressExt for ProgressContext {
         }
     }
 
-    fn task<Fut, N>(
-        &self,
-        name: N,
-        fut: Fut,
-    ) -> impl Future<Output = Fut::Output> + Send
+    fn task<Fut, N>(&self, name: N, fut: Fut) -> impl Future<Output = Fut::Output> + Send
     where
         Fut: Future + Send,
         N: Into<String> + Send,

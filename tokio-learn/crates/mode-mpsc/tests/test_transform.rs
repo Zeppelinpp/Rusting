@@ -5,7 +5,7 @@ async fn test_transform_mp4_to_wav() {
     let result = transform(
         "tests/test.mp4",
         "tests/test.wav",
-        TransformationType::Vidoe2Wav,
+        TransformationType::Video2Wav,
     )
     .await;
     assert!(result.is_ok(), "transform failed: {:?}", result.err());
