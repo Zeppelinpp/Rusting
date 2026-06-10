@@ -3,7 +3,7 @@ use qrcode::{Color, QrCode};
 use std::time::{Duration, Instant};
 
 const WIDTH: f32 = 480.0;
-const HEIGHT: f32 = 360.0;
+const HEIGHT: f32 = 180.0;
 const QR_URL: &str = "https://github.com/Zeppelinpp";
 
 fn main() -> eframe::Result {
