@@ -11,7 +11,7 @@ use winit::{
 };
 
 const WIDTH: u32 = 480;
-const HEIGHT: u32 = 360;
+const HEIGHT: u32 = 180;
 
 fn blend_gamma(src: u8, dst: u8, a: f32) -> u8 {
     let src_lin = (src as f32 / 255.0).powf(2.2);
@@ -49,7 +49,7 @@ fn load_font() -> FontRef<'static> {
         }
     }
 
-    panic!("找不到可用字体。请在项目根目录放一个 font.ttf，或修改 load_font() 添加系统字体路径。");
+    panic!("Can't find a valid font.");
 }
 
 struct App {
@@ -64,7 +64,7 @@ struct App {
 impl App {
     fn new() -> Self {
         let font = load_font();
-        let qr = QrCode::new(QR_URL).expect("二维码生成失败");
+        let qr = QrCode::new(QR_URL).expect("QrCode Generation Failed");
         let qr_size = qr.width();
         let qr_modules = qr
             .to_colors()

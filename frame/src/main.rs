@@ -12,6 +12,10 @@ struct Args {
     /// QR code url
     #[clap(short='u', long="url", default_value=QR_URL)]
     url: String,
+
+    /// User name
+    #[clap(short = 'n', long = "name", default_value = "Pew")]
+    user: String,
 }
 
 fn main() -> eframe::Result {
@@ -24,7 +28,7 @@ fn main() -> eframe::Result {
         "Streaming Timer",
         options,
         Box::new(|cc| {
-            let mut app = App::new(&args.url.as_str());
+            let mut app = App::new(&args.url.as_str(), &args.user.as_str());
             app.try_load_custom_fonts(&cc.egui_ctx);
             Ok(Box::new(app))
         }),
@@ -36,10 +40,11 @@ struct App {
     qr_modules: Vec<bool>,
     qr_size: usize,
     fonts_loaded: bool,
+    user: String,
 }
 
 impl App {
-    fn new(url: &str) -> Self {
+    fn new(url: &str, user: &str) -> Self {
         let qr = QrCode::new(url).expect("QrCode Generation Failed");
         let qr_size = qr.width();
         let qr_modules = qr
@@ -52,6 +57,7 @@ impl App {
             qr_modules,
             qr_size,
             fonts_loaded: false,
+            user: user.to_owned(),
         }
     }
 
@@ -139,7 +145,7 @@ impl eframe::App for App {
 
                                 ui.add_space(top_space.max(pad));
                                 ui.label(
-                                    egui::RichText::new("Streaming")
+                                    egui::RichText::new(format!("「{}」is Streaming", self.user))
                                         .size(28.0)
                                         .color(stream_color),
                                 );
