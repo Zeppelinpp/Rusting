@@ -17,3 +17,4 @@ winit = "0.30.13"
 ab_glyph = "0.2"
 qrcode = "0.14"
 eframe = "0.31"
+clap = { version = "4", features = ["derive"] }

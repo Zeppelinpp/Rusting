@@ -1,3 +1,4 @@
+use clap::Parser;
 use eframe::egui;
 use qrcode::{Color, QrCode};
 use std::time::{Duration, Instant};
@@ -6,7 +7,15 @@ const WIDTH: f32 = 480.0;
 const HEIGHT: f32 = 180.0;
 const QR_URL: &str = "https://github.com/Zeppelinpp";
 
+#[derive(Parser, Debug)]
+struct Args {
+    /// QR code url
+    #[clap(short='u', long="url", default_value=QR_URL)]
+    url: String,
+}
+
 fn main() -> eframe::Result {
+    let args = Args::parse();
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default().with_inner_size([WIDTH, HEIGHT]),
         ..Default::default()
@@ -15,7 +24,7 @@ fn main() -> eframe::Result {
         "Streaming Timer",
         options,
         Box::new(|cc| {
-            let mut app = App::new();
+            let mut app = App::new(&args.url.as_str());
             app.try_load_custom_fonts(&cc.egui_ctx);
             Ok(Box::new(app))
         }),
@@ -30,8 +39,8 @@ struct App {
 }
 
 impl App {
-    fn new() -> Self {
-        let qr = QrCode::new(QR_URL).expect("二维码生成失败");
+    fn new(url: &str) -> Self {
+        let qr = QrCode::new(url).expect("QrCode Generation Failed");
         let qr_size = qr.width();
         let qr_modules = qr
             .to_colors()
